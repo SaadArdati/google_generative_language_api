@@ -121,10 +121,15 @@ class GeneratedMessage with EquatableMixin {
 
 /// Enumerates the reasons for blocking content.
 enum BlockedReason {
+  /// Unspecified reason.
   @JsonValue('BLOCKED_REASON_UNSPECIFIED')
   unspecified,
+
+  /// The message contains obscene content.
   @JsonValue('SAFETY')
   safety,
+
+  /// The message was marked for other reasons.
   @JsonValue('OTHER')
   other,
 }

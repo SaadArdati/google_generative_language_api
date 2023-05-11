@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:google_generative_language_api/src/constants.dart';
+import 'constants.dart';
 import 'package:http/http.dart' as http;
 
 import 'models.dart';
