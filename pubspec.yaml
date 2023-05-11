@@ -1,5 +1,5 @@
 name: google_generative_language_api
-description: A Rest API for Google's Generative Language API
+description: A Rest API wrapper client for Google's Generative Language API.
 version: 0.1.0
 repository: https://github.com/SaadArdati/google_generative_language_api
 
