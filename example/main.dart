@@ -1,10 +1,10 @@
 import 'package:google_generative_language_api/google_generative_language_api.dart';
 
 void main() async {
-  final String modelName = 'text-bison-001';
+  const String modelName = 'text-bison-001';
 
   // Generate a message.
-  final MessagePrompt prompt = MessagePrompt(
+  const MessagePrompt prompt = MessagePrompt(
     messages: [
       Message(author: 'User', content: 'What is the meaning of life?')
     ],
@@ -13,7 +13,7 @@ void main() async {
   final GeneratedMessage generatedMessage =
       await GenerativeLanguageAPI.generateMessage(
     modelName: 'text-bison-001',
-    request: GenerateMessageRequest(prompt: prompt),
+    request: const GenerateMessageRequest(prompt: prompt),
     apiKey: 'PALM_API_KEY',
   );
 
@@ -38,7 +38,7 @@ void main() async {
   );
 
   print('Models:');
-  for (Model model in listModelResponse.models) {
+  for (final Model model in listModelResponse.models) {
     print('Name: ${model.name}');
     print('Description: ${model.description}');
     // Print other relevant model details
@@ -51,7 +51,7 @@ void main() async {
   // Count tokens of a message.
   final int tokenCount = await GenerativeLanguageAPI.countMessageTokens(
     modelName: modelName,
-    request: CountMessageTokensRequest(prompt: prompt),
+    request: const CountMessageTokensRequest(prompt: prompt),
     apiKey: 'PALM_API_KEY',
   );
 

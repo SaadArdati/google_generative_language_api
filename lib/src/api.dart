@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 
 import 'models.dart';
 
+const Map<String, String> _headers = {'Content-Type': 'application/json'};
+
 /// The GenerativeLanguageAPI class provides methods for interacting with
 /// the Generative Language API.
 ///
@@ -23,23 +25,20 @@ class GenerativeLanguageAPI {
     required GenerateMessageRequest request,
     required String apiKey,
   }) async {
-    final url = Uri.https(
+    final Uri url = Uri.https(
         Constants.endpoint, '/v1beta2/models/$modelName:generateMessage', {
       'key': apiKey,
     });
 
-    final headers = {'Content-Type': 'application/json'};
-
-    final response = await http.post(
+    final http.Response response = await http.post(
       url,
-      headers: headers,
+      headers: _headers,
       body: json.encode(request.toJson()),
     );
 
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
-      final generatedMessage = GeneratedMessage.fromJson(jsonBody);
-      return generatedMessage;
+      return GeneratedMessage.fromJson(jsonBody);
     } else {
       throw Exception('Failed to generate message: ${response.reasonPhrase}');
     }
@@ -54,16 +53,19 @@ class GenerativeLanguageAPI {
     required String modelName,
     required String apiKey,
   }) async {
-    final url = Uri.https(Constants.endpoint, '/v1beta2/models/$modelName', {
+    final Uri url =
+        Uri.https(Constants.endpoint, '/v1beta2/models/$modelName', {
       'key': apiKey,
     });
 
-    final response = await http.get(url);
+    final http.Response response = await http.get(
+      url,
+      headers: _headers,
+    );
 
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
-      final model = Model.fromJson(jsonBody);
-      return model;
+      return Model.fromJson(jsonBody);
     } else {
       throw Exception('Failed to get model: ${response.reasonPhrase}');
     }
@@ -85,18 +87,20 @@ class GenerativeLanguageAPI {
     String? pageToken,
     required String apiKey,
   }) async {
-    final url = Uri.https(Constants.endpoint, '/v1beta2/models', {
-      'pageSize': pageSize.toString(),
+    final Uri url = Uri.https(Constants.endpoint, '/v1beta2/models', {
+      'pageSize': pageSize,
       'pageToken': pageToken,
       'key': apiKey,
     });
 
-    final response = await http.get(url);
+    final http.Response response = await http.get(
+      url,
+      headers: _headers,
+    );
 
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
-      final listModelResponse = ListModelResponse.fromJson(jsonBody);
-      return listModelResponse;
+      return ListModelResponse.fromJson(jsonBody);
     } else {
       throw Exception('Failed to list models: ${response.reasonPhrase}');
     }
@@ -113,23 +117,20 @@ class GenerativeLanguageAPI {
     required CountMessageTokensRequest request,
     required String apiKey,
   }) async {
-    final url = Uri.https(
+    final Uri url = Uri.https(
         Constants.endpoint, '/v1beta2/models/$modelName:countMessageTokens', {
       'key': apiKey,
     });
 
-    final headers = {'Content-Type': 'application/json'};
-
-    final response = await http.post(
+    final http.Response response = await http.post(
       url,
-      headers: headers,
+      headers: _headers,
       body: json.encode(request.toJson()),
     );
 
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
-      final tokenCount = jsonBody['tokenCount'] as int;
-      return tokenCount;
+      return jsonBody['tokenCount'] as int;
     } else {
       throw Exception(
           'Failed to count message tokens: ${response.reasonPhrase}');

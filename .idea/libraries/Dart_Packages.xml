@@ -100,20 +100,6 @@
             </list>
           </value>
         </entry>
-        <entry key="chopper">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/chopper-6.1.1/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="chopper_generator">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/chopper_generator-6.0.0/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="code_builder">
           <value>
             <list>
@@ -509,8 +495,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/built_collection-5.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/built_value-8.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/checked_yaml-2.0.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/chopper-6.1.1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/chopper_generator-6.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/code_builder-4.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/collection-1.17.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/convert-3.1.1/lib" />

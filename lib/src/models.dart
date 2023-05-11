@@ -16,7 +16,7 @@ class MessagePrompt with EquatableMixin {
   final List<Message> messages;
 
   /// Constructs a [MessagePrompt] object.
-  MessagePrompt({
+  const MessagePrompt({
     this.context,
     this.examples,
     required this.messages,
@@ -43,7 +43,7 @@ class Example with EquatableMixin {
   final Message output;
 
   /// Constructs an [Example] object.
-  Example({
+  const Example({
     required this.input,
     required this.output,
   });
@@ -72,7 +72,7 @@ class Message with EquatableMixin {
   final CitationMetadata? citationMetadata;
 
   /// Constructs a [Message] object.
-  Message({
+  const Message({
     required this.author,
     required this.content,
     this.citationMetadata,
@@ -102,7 +102,7 @@ class GeneratedMessage with EquatableMixin {
   final List<ContentFilter> filters;
 
   /// Constructs a [GeneratedMessage] object.
-  GeneratedMessage({
+  const GeneratedMessage({
     required this.candidates,
     required this.messages,
     required this.filters,
@@ -148,7 +148,7 @@ class GenerateMessageRequest with EquatableMixin {
   final int? topK;
 
   /// Constructs a [GenerateMessageRequest] object.
-  GenerateMessageRequest({
+  const GenerateMessageRequest({
     required this.prompt,
     this.temperature,
     this.candidateCount,
@@ -221,7 +221,7 @@ class Model extends Equatable {
   final int topK;
 
   /// Constructs a [Model] object.
-  Model({
+  const Model({
     required this.name,
     required this.baseModelId,
     required this.version,
@@ -269,7 +269,7 @@ class ContentFilter with EquatableMixin {
   final String message;
 
   /// Constructs a [ContentFilter] object.
-  ContentFilter({required this.reason, required this.message});
+  const ContentFilter({required this.reason, required this.message});
 
   @override
   List<Object?> get props => [reason, message];
@@ -289,7 +289,7 @@ class CitationMetadata with EquatableMixin {
   final List<CitationSource> citationSources;
 
   /// Constructs a [CitationMetadata] object.
-  CitationMetadata({required this.citationSources});
+  const CitationMetadata({required this.citationSources});
 
   @override
   List<Object?> get props => [citationSources];
@@ -318,7 +318,7 @@ class CitationSource with EquatableMixin {
   final String? license;
 
   /// Constructs a [CitationSource] object.
-  CitationSource({
+  const CitationSource({
     this.startIndex,
     this.endIndex,
     this.uri,
@@ -349,7 +349,7 @@ class ListModelResponse extends Equatable {
   ///
   /// [models] represents the list of models returned in the response.
   /// [nextPageToken] is an optional token that can be used to retrieve the next page of results.
-  ListModelResponse({required this.models, this.nextPageToken});
+  const ListModelResponse({required this.models, this.nextPageToken});
 
   @override
   List<Object?> get props => [models, nextPageToken];
@@ -371,7 +371,7 @@ class CountMessageTokensRequest extends Equatable {
   /// Creates a new instance of [CountMessageTokensRequest].
   ///
   /// [prompt] is the message prompt for which to count the tokens.
-  CountMessageTokensRequest({required this.prompt});
+  const CountMessageTokensRequest({required this.prompt});
 
   @override
   List<Object?> get props => [prompt];
