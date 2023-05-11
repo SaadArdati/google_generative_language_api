@@ -26,7 +26,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url = Uri.https(
-        Constants.endpoint, '/v1beta2/models/$modelName:generateMessage', {
+        Constants.endpoint, '/v1beta2/model=model=models/$modelName$modelName:generateMessage', {
       'key': apiKey,
     });
 
@@ -54,7 +54,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url =
-        Uri.https(Constants.endpoint, '/v1beta2/models/$modelName', {
+        Uri.https(Constants.endpoint, '/v1beta2/model=models/$modelName$modelName', {
       'key': apiKey,
     });
 
@@ -118,7 +118,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url = Uri.https(
-        Constants.endpoint, '/v1beta2/models/$modelName:countMessageTokens', {
+        Constants.endpoint, '/v1beta2/model=models/$modelName$modelName:countMessageTokens', {
       'key': apiKey,
     });
 
