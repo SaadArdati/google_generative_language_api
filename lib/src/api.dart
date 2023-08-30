@@ -26,7 +26,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url = Uri.https(
-        Constants.endpoint, '/v1beta2/model=model=models/$modelName$modelName:generateMessage', {
+        Constants.endpoint, '/v1beta2/$modelName:generateMessage', {
       'key': apiKey,
     });
 
@@ -54,7 +54,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url =
-        Uri.https(Constants.endpoint, '/v1beta2/model=models/$modelName$modelName', {
+        Uri.https(Constants.endpoint, '/v1beta2/$modelName', {
       'key': apiKey,
     });
 
@@ -63,6 +63,7 @@ class GenerativeLanguageAPI {
       headers: _headers,
     );
 
+    print(response.body);
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
       return Model.fromJson(jsonBody);
@@ -88,7 +89,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url = Uri.https(Constants.endpoint, '/v1beta2/models', {
-      'pageSize': pageSize,
+      'pageSize': '$pageSize',
       'pageToken': pageToken,
       'key': apiKey,
     });
@@ -118,7 +119,7 @@ class GenerativeLanguageAPI {
     required String apiKey,
   }) async {
     final Uri url = Uri.https(
-        Constants.endpoint, '/v1beta2/model=models/$modelName$modelName:countMessageTokens', {
+        Constants.endpoint, '/v1beta2/$modelName:countMessageTokens', {
       'key': apiKey,
     });
 

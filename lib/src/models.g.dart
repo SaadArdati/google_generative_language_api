@@ -57,9 +57,10 @@ GeneratedMessage _$GeneratedMessageFromJson(Map<String, dynamic> json) =>
       messages: (json['messages'] as List<dynamic>)
           .map((e) => Message.fromJson(e as Map<String, dynamic>))
           .toList(),
-      filters: (json['filters'] as List<dynamic>)
-          .map((e) => ContentFilter.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      filters: (json['filters'] as List<dynamic>?)
+              ?.map((e) => ContentFilter.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$GeneratedMessageToJson(GeneratedMessage instance) =>
@@ -91,7 +92,7 @@ Map<String, dynamic> _$GenerateMessageRequestToJson(
 
 Model _$ModelFromJson(Map<String, dynamic> json) => Model(
       name: json['name'] as String,
-      baseModelId: json['baseModelId'] as String,
+      baseModelId: json['baseModelId'] as String?,
       version: json['version'] as String,
       displayName: json['displayName'] as String,
       description: json['description'] as String,
@@ -101,9 +102,9 @@ Model _$ModelFromJson(Map<String, dynamic> json) => Model(
           (json['supportedGenerationMethods'] as List<dynamic>)
               .map((e) => e as String)
               .toList(),
-      temperature: (json['temperature'] as num).toDouble(),
-      topP: (json['topP'] as num).toDouble(),
-      topK: json['topK'] as int,
+      temperature: (json['temperature'] as num?)?.toDouble(),
+      topP: (json['topP'] as num?)?.toDouble(),
+      topK: json['topK'] as int?,
     );
 
 Map<String, dynamic> _$ModelToJson(Model instance) => <String, dynamic>{

@@ -99,6 +99,7 @@ class GeneratedMessage with EquatableMixin {
   final List<Message> messages;
 
   /// List of content filters applied to the generated message.
+  @JsonKey(defaultValue: [])
   final List<ContentFilter> filters;
 
   /// Constructs a [GeneratedMessage] object.
@@ -196,7 +197,7 @@ class Model extends Equatable {
   final String name;
 
   /// The base model ID.
-  final String baseModelId;
+  final String? baseModelId;
 
   /// The version of the model.
   final String version;
@@ -217,13 +218,13 @@ class Model extends Equatable {
   final List<String> supportedGenerationMethods;
 
   /// The temperature parameter for generating diverse outputs.
-  final double temperature;
+  final double? temperature;
 
   /// The top-p (nucleus) sampling parameter.
-  final double topP;
+  final double? topP;
 
   /// The top-k sampling parameter.
-  final int topK;
+  final int? topK;
 
   /// Constructs a [Model] object.
   const Model({
