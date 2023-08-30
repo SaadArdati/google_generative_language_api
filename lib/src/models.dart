@@ -62,7 +62,6 @@ class Example with EquatableMixin {
 /// Represents a message in a conversation.
 @JsonSerializable()
 class Message with EquatableMixin {
-
   /// The content of the message.
   final String content;
 

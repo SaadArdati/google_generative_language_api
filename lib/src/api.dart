@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'constants.dart';
+
 import 'package:http/http.dart' as http;
 
+import 'constants.dart';
 import 'models.dart';
 
 const Map<String, String> _headers = {'Content-Type': 'application/json'};
@@ -25,8 +26,8 @@ class GenerativeLanguageAPI {
     required GenerateMessageRequest request,
     required String apiKey,
   }) async {
-    final Uri url = Uri.https(
-        Constants.endpoint, '/v1beta2/$modelName:generateMessage', {
+    final Uri url =
+        Uri.https(Constants.endpoint, '/v1beta2/$modelName:generateMessage', {
       'key': apiKey,
     });
 
@@ -53,8 +54,7 @@ class GenerativeLanguageAPI {
     required String modelName,
     required String apiKey,
   }) async {
-    final Uri url =
-        Uri.https(Constants.endpoint, '/v1beta2/$modelName', {
+    final Uri url = Uri.https(Constants.endpoint, '/v1beta2/$modelName', {
       'key': apiKey,
     });
 

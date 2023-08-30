@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:dotenv/dotenv.dart';
 import 'package:google_generative_language_api/google_generative_language_api.dart';
 import 'package:test/test.dart';
