@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dotenv/dotenv.dart';
 import 'package:google_generative_language_api/google_generative_language_api.dart';
@@ -45,5 +46,25 @@ void main() {
     );
 
     print(const JsonEncoder.withIndent('  ').convert(message));
+  });
+
+  test('countMessageTokens', ()
+  async {
+    const request = CountMessageTokensRequest(
+      prompt: MessagePrompt(
+        messages: [
+          Message(content: 'How many tokens?'),
+          Message(content: 'For this whole conversation?'),
+        ],
+      ),
+    );
+
+    final int count = await GenerativeLanguageAPI.countMessageTokens(
+      modelName: modelName,
+      request: request,
+      apiKey: apiKey,
+    );
+
+    expect(count, 23);
   });
 }

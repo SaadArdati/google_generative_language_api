@@ -62,19 +62,20 @@ class Example with EquatableMixin {
 /// Represents a message in a conversation.
 @JsonSerializable()
 class Message with EquatableMixin {
-  /// The author of the message.
-  final String author;
 
   /// The content of the message.
   final String content;
+
+  /// The author of the message.
+  final String? author;
 
   /// The citation metadata associated with the message.
   final CitationMetadata? citationMetadata;
 
   /// Constructs a [Message] object.
   const Message({
-    required this.author,
     required this.content,
+    this.author,
     this.citationMetadata,
   });
 

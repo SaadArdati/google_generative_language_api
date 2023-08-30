@@ -35,8 +35,8 @@ Map<String, dynamic> _$ExampleToJson(Example instance) => <String, dynamic>{
     };
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
-      author: json['author'] as String,
       content: json['content'] as String,
+      author: json['author'] as String?,
       citationMetadata: json['citationMetadata'] == null
           ? null
           : CitationMetadata.fromJson(
@@ -44,8 +44,8 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
     );
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
-      'author': instance.author,
       'content': instance.content,
+      'author': instance.author,
       'citationMetadata': instance.citationMetadata,
     };
 
