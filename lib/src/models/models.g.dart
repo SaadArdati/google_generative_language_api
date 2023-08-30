@@ -6,22 +6,24 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MessagePrompt _$MessagePromptFromJson(Map<String, dynamic> json) =>
-    MessagePrompt(
-      context: json['context'] as String?,
-      examples: (json['examples'] as List<dynamic>?)
-          ?.map((e) => Example.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      messages: (json['messages'] as List<dynamic>)
-          .map((e) => Message.fromJson(e as Map<String, dynamic>))
-          .toList(),
+TextCompletion _$TextCompletionFromJson(Map<String, dynamic> json) =>
+    TextCompletion(
+      output: json['output'] as String,
+      safetyRatings: (json['safetyRatings'] as List<dynamic>?)
+              ?.map((e) => SafetyRating.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      citationMetadata: json['citationMetadata'] == null
+          ? null
+          : CitationMetadata.fromJson(
+              json['citationMetadata'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$MessagePromptToJson(MessagePrompt instance) =>
+Map<String, dynamic> _$TextCompletionToJson(TextCompletion instance) =>
     <String, dynamic>{
-      'context': instance.context,
-      'examples': instance.examples,
-      'messages': instance.messages,
+      'output': instance.output,
+      'safetyRatings': instance.safetyRatings,
+      'citationMetadata': instance.citationMetadata,
     };
 
 Example _$ExampleFromJson(Map<String, dynamic> json) => Example(
@@ -44,50 +46,9 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
     );
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
-      'content': instance.content,
       'author': instance.author,
+      'content': instance.content,
       'citationMetadata': instance.citationMetadata,
-    };
-
-GeneratedMessage _$GeneratedMessageFromJson(Map<String, dynamic> json) =>
-    GeneratedMessage(
-      candidates: (json['candidates'] as List<dynamic>)
-          .map((e) => Message.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      messages: (json['messages'] as List<dynamic>)
-          .map((e) => Message.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      filters: (json['filters'] as List<dynamic>?)
-              ?.map((e) => ContentFilter.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-
-Map<String, dynamic> _$GeneratedMessageToJson(GeneratedMessage instance) =>
-    <String, dynamic>{
-      'candidates': instance.candidates,
-      'messages': instance.messages,
-      'filters': instance.filters,
-    };
-
-GenerateMessageRequest _$GenerateMessageRequestFromJson(
-        Map<String, dynamic> json) =>
-    GenerateMessageRequest(
-      prompt: MessagePrompt.fromJson(json['prompt'] as Map<String, dynamic>),
-      temperature: (json['temperature'] as num?)?.toDouble(),
-      candidateCount: json['candidateCount'] as int?,
-      topP: (json['topP'] as num?)?.toDouble(),
-      topK: json['topK'] as int?,
-    );
-
-Map<String, dynamic> _$GenerateMessageRequestToJson(
-        GenerateMessageRequest instance) =>
-    <String, dynamic>{
-      'prompt': instance.prompt,
-      'temperature': instance.temperature,
-      'candidateCount': instance.candidateCount,
-      'topP': instance.topP,
-      'topK': instance.topK,
     };
 
 Model _$ModelFromJson(Map<String, dynamic> json) => Model(
@@ -138,34 +99,6 @@ const _$BlockedReasonEnumMap = {
   BlockedReason.safety: 'SAFETY',
   BlockedReason.other: 'OTHER',
 };
-
-CitationMetadata _$CitationMetadataFromJson(Map<String, dynamic> json) =>
-    CitationMetadata(
-      citationSources: (json['citationSources'] as List<dynamic>)
-          .map((e) => CitationSource.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$CitationMetadataToJson(CitationMetadata instance) =>
-    <String, dynamic>{
-      'citationSources': instance.citationSources,
-    };
-
-CitationSource _$CitationSourceFromJson(Map<String, dynamic> json) =>
-    CitationSource(
-      startIndex: json['startIndex'] as int?,
-      endIndex: json['endIndex'] as int?,
-      uri: json['uri'] as String?,
-      license: json['license'] as String?,
-    );
-
-Map<String, dynamic> _$CitationSourceToJson(CitationSource instance) =>
-    <String, dynamic>{
-      'startIndex': instance.startIndex,
-      'endIndex': instance.endIndex,
-      'uri': instance.uri,
-      'license': instance.license,
-    };
 
 ListModelResponse _$ListModelResponseFromJson(Map<String, dynamic> json) =>
     ListModelResponse(

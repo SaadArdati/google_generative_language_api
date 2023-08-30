@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'constants.dart';
-import 'models.dart';
+import 'models/models.dart';
 
 const Map<String, String> _headers = {'Content-Type': 'application/json'};
 
@@ -16,38 +16,9 @@ const Map<String, String> _headers = {'Content-Type': 'application/json'};
 class GenerativeLanguageAPI {
   const GenerativeLanguageAPI._();
 
-  /// Generates a message using the specified model and request.
+  /// Gets information about a specific [Model].
   ///
-  /// Returns the generated message as a [GeneratedMessage] object.
-  ///
-  /// Throws an exception if the API request fails.
-  static Future<GeneratedMessage> generateMessage({
-    required String modelName,
-    required GenerateMessageRequest request,
-    required String apiKey,
-  }) async {
-    final Uri url =
-        Uri.https(Constants.endpoint, '/v1beta2/$modelName:generateMessage', {
-      'key': apiKey,
-    });
-
-    final http.Response response = await http.post(
-      url,
-      headers: _headers,
-      body: json.encode(request.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-      final jsonBody = json.decode(response.body);
-      return GeneratedMessage.fromJson(jsonBody);
-    } else {
-      throw Exception('Failed to generate message: ${response.reasonPhrase}');
-    }
-  }
-
-  /// Retrieves information about the specified model.
-  ///
-  /// Returns the model information as a [Model] object.
+  /// [Returns] the model information as a [Model] object.
   ///
   /// Throws an exception if the API request fails.
   static Future<Model> getModel({
@@ -74,12 +45,13 @@ class GenerativeLanguageAPI {
 
   /// Lists models available through the API.
   ///
-  /// Returns the list of models as a [ListModelResponse] object, which includes
-  /// the models and a next page token for pagination.
+  /// [Returns] the list of models as a [ListModelResponse] object, which
+  /// includes the models and a next page token for pagination.
   ///
   /// Optional parameters:
-  /// - [pageSize]: The maximum number of models to return per page. Default is 50.
-  /// - [pageToken]: A token received from a previous models.list call to
+  /// - [pageSize] The maximum number of models to return per page.
+  /// Default is 50.
+  /// - [pageToken] A token received from a previous models.list call to
   /// retrieve the next page.
   ///
   /// Throws an exception if the API request fails.
@@ -107,10 +79,9 @@ class GenerativeLanguageAPI {
     }
   }
 
-  /// Counts the number of tokens in a generated message using the specified
-  /// model and request.
+  /// Runs a model's tokenizer on a string and returns the token count.
   ///
-  /// Returns the token count as an integer.
+  /// [Returns] the token count as an integer.
   ///
   /// Throws an exception if the API request fails.
   static Future<int> countMessageTokens({
@@ -135,6 +106,93 @@ class GenerativeLanguageAPI {
     } else {
       throw Exception(
           'Failed to count message tokens: ${response.reasonPhrase}');
+    }
+  }
+
+  /// Generates a response from the model given an input [MessagePrompt].
+  ///
+  /// [Returns] the generated message as a [GeneratedMessage] object.
+  ///
+  /// Throws an exception if the API request fails.
+  static Future<GeneratedMessage> generateMessage({
+    required String modelName,
+    required GenerateMessageRequest request,
+    required String apiKey,
+  }) async {
+    final Uri url =
+        Uri.https(Constants.endpoint, '/v1beta2/$modelName:generateMessage', {
+      'key': apiKey,
+    });
+
+    final http.Response response = await http.post(
+      url,
+      headers: _headers,
+      body: json.encode(request.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body);
+      return GeneratedMessage.fromJson(jsonBody);
+    } else {
+      throw Exception('Failed to generate message: ${response.reasonPhrase}');
+    }
+  }
+
+  /// Generates a response from the model given an input message.
+  ///
+  /// [Returns] the generated text as a [GeneratedText] object.
+  ///
+  /// Throws an exception if the API request fails.
+  static Future<GeneratedText> generateText({
+    required String modelName,
+    required GenerateTextRequest request,
+    required String apiKey,
+  }) async {
+    final Uri url =
+        Uri.https(Constants.endpoint, '/v1beta2/$modelName:generateText', {
+      'key': apiKey,
+    });
+
+    final http.Response response = await http.post(
+      url,
+      headers: _headers,
+      body: json.encode(request.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body);
+      return GeneratedText.fromJson(jsonBody);
+    } else {
+      throw Exception('Failed to generate message: ${response.reasonPhrase}');
+    }
+  }
+
+  /// Generates an embedding from the model given an input message.
+  ///
+  /// [Returns] the generated embedding as an [EmbedTextResponse] object.
+  ///
+  /// Throws an exception if the API request fails.
+  static Future<EmbedTextResponse> embedText({
+    required String modelName,
+    required EmbedTextRequest request,
+    required String apiKey,
+  }) async {
+    final Uri url =
+        Uri.https(Constants.endpoint, '/v1beta2/$modelName:embedText', {
+      'key': apiKey,
+    });
+
+    final http.Response response = await http.post(
+      url,
+      headers: _headers,
+      body: json.encode(request.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body);
+      return EmbedTextResponse.fromJson(jsonBody);
+    } else {
+      throw Exception('Failed to embed text: ${response.reasonPhrase}');
     }
   }
 }

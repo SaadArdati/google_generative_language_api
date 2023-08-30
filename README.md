@@ -1,6 +1,4 @@
-# Generative Language API
-
-## Note: This API is not yet public and is only available for Google trusted testers.
+# Generative Language API (PaLM)
 
 A Dart package that provides convenient access to the Generative Language API.
 It allows you to interact with the API to generate messages, retrieve models, list available models, 
@@ -44,7 +42,7 @@ void main() async {
 
   final GeneratedMessage generatedMessage =
   await GenerativeLanguageAPI.generateMessage(
-    modelName: 'text-bison-001',
+    modelName: 'models/chat-bison-001',
     request: GenerateMessageRequest(prompt: prompt),
     apiKey: 'PALM_API_KEY',
   );
