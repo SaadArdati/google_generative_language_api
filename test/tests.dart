@@ -18,7 +18,8 @@ void main() {
   });
 
   test('listModels', () async {
-    final models = await GenerativeLanguageAPI.listModels(apiKey: apiKey);
+    final ListModelResponse models =
+        await GenerativeLanguageAPI.listModels(apiKey: apiKey);
 
     print(const JsonEncoder.withIndent('  ').convert(models));
   });
@@ -41,13 +42,14 @@ void main() {
       ),
     );
 
-    final message = await GenerativeLanguageAPI.generateMessage(
+    final GeneratedMessage response =
+        await GenerativeLanguageAPI.generateMessage(
       modelName: chatModel,
       request: request,
       apiKey: apiKey,
     );
 
-    print(const JsonEncoder.withIndent('  ').convert(message));
+    print(const JsonEncoder.withIndent('  ').convert(response));
   });
 
   test('generateText', () async {
@@ -57,25 +59,25 @@ void main() {
       candidateCount: 2,
     );
 
-    final message = await GenerativeLanguageAPI.generateText(
+    final response = await GenerativeLanguageAPI.generateText(
       modelName: textModel,
       request: request,
       apiKey: apiKey,
     );
 
-    print(const JsonEncoder.withIndent('  ').convert(message));
+    print(const JsonEncoder.withIndent('  ').convert(response));
   });
 
   test('embedText', () async {
     const request = EmbedTextRequest(text: 'say something nice!');
 
-    final message = await GenerativeLanguageAPI.embedText(
+    final response = await GenerativeLanguageAPI.embedText(
       modelName: embedModel,
       request: request,
       apiKey: apiKey,
     );
 
-    print(const JsonEncoder.withIndent('  ').convert(message));
+    print(const JsonEncoder.withIndent('  ').convert(response));
   });
 
   test('countMessageTokens', () async {

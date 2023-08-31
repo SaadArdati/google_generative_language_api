@@ -7,13 +7,13 @@ part 'embedding.g.dart';
 @JsonSerializable()
 class Embedding with EquatableMixin {
   /// The embedding values.
-  final List<double> values;
+  final List<double> value;
 
   /// Constructs an [Embedding] object.
-  const Embedding({this.values = const []});
+  const Embedding({this.value = const []});
 
   @override
-  List<Object?> get props => [values];
+  List<Object?> get props => [value];
 
   /// Creates an [Embedding] instance from a JSON map.
   factory Embedding.fromJson(Map<String, dynamic> json) =>
@@ -25,23 +25,24 @@ class Embedding with EquatableMixin {
 
 /// The response to a [EmbedTextRequest].
 @JsonSerializable()
-class EmbedTextResponse with EquatableMixin {
+class EmbeddedText with EquatableMixin {
   /// Output only. The embedding generated from the input text.
   final Embedding embedding;
 
-  /// Constructs an [EmbedTextResponse] object.
-  const EmbedTextResponse({this.embedding = const Embedding()});
+  /// Constructs an [EmbeddedText] object.
+  const EmbeddedText({this.embedding = const Embedding()});
 
   @override
   List<Object?> get props => [embedding];
 
-  /// Creates an [EmbedTextResponse] instance from a JSON map.
-  factory EmbedTextResponse.fromJson(Map<String, dynamic> json) =>
-      _$EmbedTextResponseFromJson(json);
+  /// Creates an [EmbeddedText] instance from a JSON map.
+  factory EmbeddedText.fromJson(Map<String, dynamic> json) =>
+      _$EmbeddedTextFromJson(json);
 
-  /// Converts the [EmbedTextResponse] instance to a JSON map.
-  Map<String, dynamic> toJson() => _$EmbedTextResponseToJson(this);
+  /// Converts the [EmbeddedText] instance to a JSON map.
+  Map<String, dynamic> toJson() => _$EmbeddedTextToJson(this);
 }
+
 /// The request body to generate an embedding from text.
 @JsonSerializable()
 class EmbedTextRequest with EquatableMixin {

@@ -5,14 +5,121 @@ import 'citation.dart';
 import 'prompt.dart';
 import 'safety.dart';
 
+export 'embedding.dart';
 export 'generated_request.dart';
 export 'generated_response.dart';
 export 'harm.dart';
 export 'prompt.dart';
 export 'safety.dart';
-export 'embedding.dart';
 
 part 'models.g.dart';
+
+/// Information about a Generative Language Model.
+@JsonSerializable()
+class Model extends Equatable {
+  /// The resource name of the Model.
+  ///
+  /// Format: models/{model} with a {model} naming convention of:
+  ///
+  /// "{baseModelId}-{version}"
+  /// Examples:
+  ///
+  /// models/chat-bison-001
+  final String name;
+
+  /// Required. The name of the base model, pass this to the generation request.
+  ///
+  /// Examples:
+  ///
+  /// chat-bison
+  final String? baseModelId;
+
+  /// The version number of the model.
+  ///
+  /// This represents the major version
+  final String version;
+
+  /// The human-readable name of the model. E.g. "Chat Bison".
+  ///
+  /// The name can be up to 128 characters long and can consist of any UTF-8 characters.
+  final String displayName;
+
+  /// A short description of the model.
+  final String description;
+
+  /// Maximum number of input tokens allowed for this model.
+  final int inputTokenLimit;
+
+  /// Maximum number of output tokens available for this model.
+  final int outputTokenLimit;
+
+  /// The model's supported generation methods.
+  ///
+  /// The method names are defined as Pascal case strings, such as
+  /// [generateMessage] which correspond to API methods.
+  final List<String> supportedGenerationMethods;
+
+  /// Controls the randomness of the output.
+  ///
+  /// Values can range over [0.0,1.0], inclusive. A value closer to 1.0 will
+  /// produce responses that are more varied, while a value closer to 0.0 will
+  /// typically result in less surprising responses from the model. This value
+  /// specifies default to be used by the backend while making the call to the
+  /// model.
+  final double? temperature;
+
+  /// For Nucleus sampling.
+  ///
+  /// Nucleus sampling considers the smallest set of tokens whose probability
+  /// sum is at least [topP]. This value specifies default to be used by the
+  /// backend while making the call to the model.
+  final double? topP;
+
+  /// For Top-k sampling.
+  ///
+  /// Top-k sampling considers the set of [topK] most probable tokens. This value
+  /// specifies default to be used by the backend while making the call to the
+  /// model.
+  final int? topK;
+
+  /// Constructs a [Model] object.
+  const Model({
+    required this.name,
+    required this.baseModelId,
+    required this.version,
+    required this.displayName,
+    required this.description,
+    required this.inputTokenLimit,
+    required this.outputTokenLimit,
+    required this.supportedGenerationMethods,
+    required this.temperature,
+    required this.topP,
+    required this.topK,
+  });
+
+  @override
+  List<Object?> get props {
+    return [
+      name,
+      baseModelId,
+      version,
+      displayName,
+      description,
+      inputTokenLimit,
+      outputTokenLimit,
+      supportedGenerationMethods,
+      temperature,
+      topP,
+      topK,
+    ];
+  }
+
+  /// Creates a [Model] instance from a JSON map.
+  factory Model.fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
+
+  /// Converts the [Model] instance to a JSON map.
+  Map<String, dynamic> toJson() => _$ModelToJson(this);
+}
 
 /// Output text returned from a model.
 @JsonSerializable()
@@ -135,81 +242,6 @@ enum BlockedReason {
   /// The message was marked for other reasons.
   @JsonValue('OTHER')
   other,
-}
-
-/// Represents a language model.
-@JsonSerializable()
-class Model extends Equatable {
-  /// The name of the model.
-  final String name;
-
-  /// The base model ID.
-  final String? baseModelId;
-
-  /// The version of the model.
-  final String version;
-
-  /// The display name of the model.
-  final String displayName;
-
-  /// The description of the model.
-  final String description;
-
-  /// The maximum number of input tokens allowed.
-  final int inputTokenLimit;
-
-  /// The maximum number of output tokens allowed.
-  final int outputTokenLimit;
-
-  /// The supported generation methods for the model.
-  final List<String> supportedGenerationMethods;
-
-  /// The temperature parameter for generating diverse outputs.
-  final double? temperature;
-
-  /// The top-p (nucleus) sampling parameter.
-  final double? topP;
-
-  /// The top-k sampling parameter.
-  final int? topK;
-
-  /// Constructs a [Model] object.
-  const Model({
-    required this.name,
-    required this.baseModelId,
-    required this.version,
-    required this.displayName,
-    required this.description,
-    required this.inputTokenLimit,
-    required this.outputTokenLimit,
-    required this.supportedGenerationMethods,
-    required this.temperature,
-    required this.topP,
-    required this.topK,
-  });
-
-  @override
-  List<Object?> get props {
-    return [
-      name,
-      baseModelId,
-      version,
-      displayName,
-      description,
-      inputTokenLimit,
-      outputTokenLimit,
-      supportedGenerationMethods,
-      temperature,
-      topP,
-      topK,
-    ];
-  }
-
-  /// Creates a [Model] instance from a JSON map.
-  factory Model.fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
-
-  /// Converts the [Model] instance to a JSON map.
-  Map<String, dynamic> toJson() => _$ModelToJson(this);
 }
 
 /// Content filtering metadata associated with processing a single request.

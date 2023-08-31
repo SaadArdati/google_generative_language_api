@@ -1,3 +1,10 @@
+## 0.2.0
+- Add support for generating text.
+- Add support for embedding text.
+- Refactor all models to mimic official PaLM API docs.
+- Split models into separate files.
+- Update example, README, and tests to reflect changes.
+
 ## 0.1.3
 - Fix all functions with new PaLM updates.
 - Mark some fields as nullable and optional.

@@ -7,24 +7,23 @@ part of 'embedding.dart';
 // **************************************************************************
 
 Embedding _$EmbeddingFromJson(Map<String, dynamic> json) => Embedding(
-      values: (json['values'] as List<dynamic>?)
+      value: (json['value'] as List<dynamic>?)
               ?.map((e) => (e as num).toDouble())
               .toList() ??
           const [],
     );
 
 Map<String, dynamic> _$EmbeddingToJson(Embedding instance) => <String, dynamic>{
-      'values': instance.values,
+      'value': instance.value,
     };
 
-EmbedTextResponse _$EmbedTextResponseFromJson(Map<String, dynamic> json) =>
-    EmbedTextResponse(
+EmbeddedText _$EmbeddedTextFromJson(Map<String, dynamic> json) => EmbeddedText(
       embedding: json['embedding'] == null
           ? const Embedding()
           : Embedding.fromJson(json['embedding'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$EmbedTextResponseToJson(EmbedTextResponse instance) =>
+Map<String, dynamic> _$EmbeddedTextToJson(EmbeddedText instance) =>
     <String, dynamic>{
       'embedding': instance.embedding,
     };

@@ -1,14 +1,28 @@
 # Generative Language API (PaLM)
 
 A Dart package that provides convenient access to the Generative Language API.
-It allows you to interact with the API to generate messages, retrieve models, list available models, 
-and count message tokens.
+It allows you to interact with the API to generate messages, generate text, embed text, retrieve models,
+list available models, and count message tokens.
+
+This package is a third party wrapper around the REST API, it is not an official Google package. With that in mind,
+I have tried to make the package as easy to use as possible, adapting the models and documentation to Dart as accurately
+as possible. If you encounter any discrepancies, issues, or have suggestions, please file an issue on GitHub.
+
+The PaLM API allows developers to build generative AI applications using the PaLM model.
+Large Language Models (LLMs) are a powerful, versatile type of machine learning model that enables computers to
+comprehend and generate natural language through a series of prompts.
+
+The PaLM API is based on Google's next generation LLM, PaLM. It excels at a variety of different tasks like code
+generation, reasoning, and writing. You can use the PaLM API to build generative AI applications for use cases like
+content generation, dialogue agents, summarization and classification systems, and more.
 
 Refer to https://developers.generativeai.google/api/rest/generativelanguage for more information.
 
 ## Features
 
 - Generate messages using specified models.
+- Generate text using specified models.
+- Embed text using specified models.
 - Retrieve details of a specific model.
 - List available models with pagination support.
 - Count the number of tokens in a message.
@@ -31,26 +45,6 @@ import 'package:google_generative_language_api/google_generative_language_api.da
 
 You can then use the various methods provided by the package like so:
 
-### Generate messages
-```dart
-void main() async {
-  final MessagePrompt prompt = MessagePrompt(
-    messages: [
-      Message(author: 'User', content: 'What is the meaning of life?')
-    ],
-  );
-
-  final GeneratedMessage generatedMessage =
-  await GenerativeLanguageAPI.generateMessage(
-    modelName: 'models/chat-bison-001',
-    request: GenerateMessageRequest(prompt: prompt),
-    apiKey: 'PALM_API_KEY',
-  );
-
-  print(generatedMessage.messages.map((message) => message.content).join('\n'));
-}
-```
-
 ### Get model details
 ```dart
 void main() async {
@@ -68,23 +62,79 @@ void main() async {
 ### List all available models
 ```dart
 void main() async {
-  final ListModelResponse listModelResponse =
-  await GenerativeLanguageAPI.listModels(
-    pageSize: 50,
-    pageToken: null,
-    apiKey: 'PALM_API_KEY',
-  );
+  final ListModelResponse response =
+      await GenerativeLanguageAPI.listModels(apiKey: 'PALM_API_KEY');
 
   print('Models:');
-  for (final Model model in listModelResponse.models) {
+  for (final Model model in response.models) {
     print('Name: ${model.name}');
     print('Description: ${model.description}');
     // Print other relevant model details
   }
 
-  if (listModelResponse.nextPageToken != null) {
-    print('Next Page Token: ${listModelResponse.nextPageToken}');
+  if (response.nextPageToken != null) {
+    print('Next Page Token: ${response.nextPageToken}');
   }
+}
+```
+
+### Generate messages
+
+```dart
+void main() async {
+  const request = GenerateMessageRequest(
+    prompt: MessagePrompt(
+      messages: [
+        Message(author: '1', content: 'hi'),
+      ],
+    ),
+  );
+
+  final GeneratedMessage generatedMessage =
+  await GenerativeLanguageAPI.generateMessage(
+    modelName: 'models/chat-bison-001',
+    request: request,
+    apiKey: 'PALM_API_KEY',
+  );
+
+  print(generatedMessage.messages.map((message) => message.content).join('\n'));
+  print(generatedMessage.candidates.map((message) => message.content).join('\n'));
+}
+```
+
+### Generate text
+
+```dart
+void main() async {
+  const request = GenerateTextRequest(
+    prompt: TextPrompt(text: 'Write a story about a magic backpack.'),
+    temperature: 1.0,
+    candidateCount: 2,
+  );
+
+  final GeneratedText text = await GenerativeLanguageAPI.generateText(
+    modelName: 'models/text-bison-001',
+    request: request,
+    apiKey: 'PALM_API_KEY',
+  );
+
+  print(text.candidates.map((candidate) => candidate.output).join('\n'));
+}
+```
+
+### Embed Text
+
+```dart
+void main() async {
+  const request = EmbedTextRequest(text: 'say something nice!');
+
+  final EmbeddedText embed = await GenerativeLanguageAPI.embedText(
+    modelName: 'models/embedding-gecko-001',
+    request: request,
+    apiKey: 'PALM_API_KEY',
+  );
+
+  print(embed.embedding.values.join('\n'));
 }
 ```
 
@@ -100,7 +150,6 @@ void main() async {
   print('Token Count: $tokenCount');
 }
 ```
-
 
 ## Additional Information
 

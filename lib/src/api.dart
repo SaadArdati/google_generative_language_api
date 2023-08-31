@@ -169,10 +169,10 @@ class GenerativeLanguageAPI {
 
   /// Generates an embedding from the model given an input message.
   ///
-  /// [Returns] the generated embedding as an [EmbedTextResponse] object.
+  /// [Returns] the generated embedding as an [EmbeddedText] object.
   ///
   /// Throws an exception if the API request fails.
-  static Future<EmbedTextResponse> embedText({
+  static Future<EmbeddedText> embedText({
     required String modelName,
     required EmbedTextRequest request,
     required String apiKey,
@@ -190,7 +190,7 @@ class GenerativeLanguageAPI {
 
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
-      return EmbedTextResponse.fromJson(jsonBody);
+      return EmbeddedText.fromJson(jsonBody);
     } else {
       throw Exception('Failed to embed text: ${response.reasonPhrase}');
     }

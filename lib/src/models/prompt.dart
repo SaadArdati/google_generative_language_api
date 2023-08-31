@@ -7,7 +7,6 @@ part 'prompt.g.dart';
 
 /// Represents an abstract prompt for generating text.
 abstract class Prompt with EquatableMixin {
-
   /// Constructs a [Prompt] object.
   const Prompt();
 }

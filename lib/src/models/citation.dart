@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'citation.g.dart';
 
-
 /// A collection of source attributions for a piece of content.
 @JsonSerializable()
 class CitationMetadata with EquatableMixin {
