@@ -31,9 +31,21 @@ Refer to https://developers.generativeai.google/api/rest/generativelanguage for 
 
 Before you can use this package, you need to obtain an API key for the Generative Language API. Follow these steps:
 
-1. Sign up for a Google Cloud Platform account and create a new project.
-2. Enable the Generative Language API for your project.
-3. Generate an API key for your project.
+1. Go to https://makersuite.google.com/app/home
+2. Tap on "Create an API key"
+3. Select either "Create API key in new project" or "Create API key in existing project" depending on your needs.
+4. Copy the API key you generated and save it somewhere safe.
+   - Never share your API key with anyone and never commit it to a public repository.
+   - Please use caution and follow best practices when using API keys.
+
+Once you have your API key, you can install the package by adding it to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  google_generative_language_api: ^latest
+```
+
+Then run `flutter pub get` in your terminal.
 
 ## Usage
 
