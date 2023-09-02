@@ -1,3 +1,6 @@
+## 0.2.1
+- Update README with clearer getting started instructions.
+
 ## 0.2.0
 - Add support for generating text.
 - Add support for embedding text.
